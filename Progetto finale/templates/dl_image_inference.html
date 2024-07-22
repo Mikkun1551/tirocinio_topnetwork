@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- <link rel="stylesheet" href="../css/dl_image_inference.css">-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='dl_image_inference.css') }}">
+        <!-- Bootstrap CSS FOR TEXT INPUT-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+         <!--ICON FONTS AWESOME--->
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css">
+        <link rel="stylesheet" href="/static/dl_image_inference.css">
+    </head>
+
+    <body onload="animate_title('target')">
+        <div id="sidebar">
+            <ul class="nav flex-column"></ul>
+        </div>
+        <pre id="target">Image Classification WEB </pre>
+            {% if upload %}
+                <div class="container-image">
+                    <!--After doing inference, result is the model answer string, image is the image given to the upload 
+                    The result is the string result of the inference right above the image-->
+                    <div class="image-label">{{ result }}</div>
+                    <img id="image_id" src="/static/uploads/{{ image }}" alt="Uploaded image">
+                </div>
+            {% endif %}
+        <div class="container-buttons">
+                <br> <br>
+                <!--Set the url of the inference page like the flask server-->
+                <form action="/Progetto-finale/dl-image-inference" method ="post" enctype="multipart/form-data">
+                    <label for="myfile" style="font-size: 20px;">Select Image </label>
+                    <input type="file" id="myfile" name="image_name" onchange="showImageName()" required><!--accept=".png, .jpg, .jpeg"- onchange="showImageName()"-->
+                    <input type="submit" value="Upload Image" id="sbt">
+                    <div id="getName"></div> <!--GET FILE NAME-->
+                    <div id="successImage" class="alert alert-success" style="display:none;">
+                        SuccessFully Image Upload!
+                    </div>
+                    <div id="errorImage" class="alert alert-warning" style="display:none;"> <!--BOOTSTRAP-->
+                       Warning Image Upload Failed!
+                    </div>
+                </form> 
+             </div>
+        <script src="{{ url_for('static', filename='js/dl_image_inference.js') }}"></script> 
+    </body>
+</html>
